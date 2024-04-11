@@ -13,6 +13,7 @@ export default function SearchHeader() {
     const { keyword } = useParams();
     const navigate = useNavigate();
     const [text, setText] = useState('');
+
     const handleSubmit = e => {
         e.preventDefault();
         navigate(`/videos/${text}`);
@@ -23,7 +24,7 @@ export default function SearchHeader() {
 
     return (
         <Stack direction={'row'} sx={{alignItems: 'center'}}>
-            <Link to='/'>
+            <Link to='/' style={{ textDecoration: 'none'}}>
                 <Stack direction={'row'} spacing={2}>
                     <YouTubeIcon color='error' fontSize="large" />
                     <Typography variant="h5" color='error' sx={{fontWeight: 'bold'}}>Youtube</Typography>
