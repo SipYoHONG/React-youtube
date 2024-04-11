@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query'
 import axios from 'axios';
 
 export default function Videos() {
@@ -24,11 +25,15 @@ export default function Videos() {
     return (
         <>
             <div> Videos {keyword ? `${keyword}로 검색` : 'Hot Trend'} </div>
+            {isLoading && <p>Loading...</p>}
+            {error && <p>Something is wrong!!</p>}
+            {videos &&(
             <ul>
                 {videos.map(video => (
                     <li key={video.id}>{video.snippet.title}</li>
                 ))}
             </ul>
+          )}
         </>
     )
 }
