@@ -1,0 +1,13 @@
+package com.shopping.table.cart.service;
+
+import com.shopping.table.cart.entity.Cart;
+import java.util.List;
+
+public interface CartService {
+    CartItem getCartItem(Long id);
+    List<CartItem> getAllCartItems();
+    void addCartItem(CartItem cartItem);
+    void updateCartItem(CartItem cartItem);
+    void deleteCartItem(Long id);
+    int getCartItemCount();
+}

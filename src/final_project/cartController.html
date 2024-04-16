@@ -1,0 +1,55 @@
+package com.shopping.table.cart.controller;
+
+import com.shopping.table.cart.entity.CartItem;
+import com.shopping.table.cart.service.CartService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/cart")
+@RequiredArgsConstructor
+public class CartController {
+    private final CartService cartService;
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CartItem> getCartItem(@PathVariable Long id) {
+        CartItem cartItem = cartService.getCartItem(id);
+        if (cartItem == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(cartItem);
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<List<CartItem>> getAllCartItems() {
+        List<CartItem> cartItems = cartService.getAllCartItems();
+        return ResponseEntity.ok(cartItems);
+    }
+
+    @PostMapping("/")
+    public ResponseEntity<Void> addCartItem(@RequestBody CartItem cartItem) {
+        cartService.addCartItem(cartItem);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/")
+    public ResponseEntity<Void> updateCartItem(@RequestBody CartItem cartItem) {
+        cartService.updateCartItem(cartItem);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCartItem(@PathVariable Long id) {
+        cartService.deleteCartItem(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/count")
+    public ResponseEntity<Integer> getCartItemCount() {
+        int count = cartService.getCartItemCount();
+        return ResponseEntity.ok(count);
+    }
+}

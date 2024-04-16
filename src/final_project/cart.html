@@ -1,0 +1,28 @@
+package com.shopping.table.cart.dao;
+
+import com.shopping.table.cart.entity.Cart;
+import org.apache.ibatis.annotations.*;
+
+import java.util.List;
+
+@Mapper
+public interface CartDao {
+
+    @Select("SELECT * FROM cart_items WHERE id = #{id} AND isDeleted = 0")
+    CartItem getCartItem(Long id);
+
+    @Select("SELECT * FROM cart_items WHERE isDeleted = 0")
+    List<CartItem> getAllCartItems();
+
+    @Insert("INSERT INTO cart_items (product_id, quantity, isDeleted) VALUES (#{productId}, #{quantity}, 0)")
+    void addCartItem(CartItem cartItem);
+
+    @Update("UPDATE cart_items SET product_id = #{productId}, quantity = #{quantity} WHERE id = #{id} AND isDeleted = 0")
+    void updateCartItem(CartItem cartItem);
+
+    @Update("UPDATE cart_items SET isDeleted = 1 WHERE id = #{id}")
+    void deleteCartItem(Long id);
+
+    @Select("SELECT COUNT(id) FROM cart_items WHERE isDeleted = 0")
+    int getCartItemCount();
+}

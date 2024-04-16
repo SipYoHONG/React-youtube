@@ -1,0 +1,45 @@
+package com.shopping.table.cart.controller;
+
+import com.shopping.table.cart.entity.Cart;
+import com.shopping.table.cart.service.CartService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class CartServiceImpl implements CartService {
+    private final CartDao cartDao;
+
+    @Override
+    public CartItem getCartItem(Long id) {
+        return cartDao.getCartItem(id);
+    }
+
+    @Override
+    public List<CartItem> getAllCartItems() {
+        return cartDao.getAllCartItems();
+    }
+
+    @Override
+    public void addCartItem(CartItem cartItem) {
+        cartDao.addCartItem(cartItem);
+    }
+
+    @Override
+    public void updateCartItem(CartItem cartItem) {
+        cartDao.updateCartItem(cartItem);
+    }
+
+    @Override
+    public void deleteCartItem(Long id) {
+        cartDao.deleteCartItem(id);
+    }
+
+    @Override
+    public int getCartItemCount() {
+        return cartDao.getCartItemCount();
+    }
+}
